@@ -1,7 +1,7 @@
 server:
   port: 8082
-  servlet:
-    context-path: /security
+#  servlet:
+#    context-path: /security
 
 spring:
   datasource:
@@ -12,7 +12,11 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-testing:
-  app:
-    secret: ivnisbunhugslkfcalkmvkdv
-    expirationMs: 60000
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+#testing:
+#  app:
+#    secret: ivnisbunhugslkfcalkmvkdv
+#    expirationMs: 60000

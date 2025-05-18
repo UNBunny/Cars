@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: nikita
+      changes:
+        - sqlFile:
+            path: changes/V001_setup-database.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 2
+      author: nikita
+      changes:
+        - sqlFile:
+            path: changes/V002_insert-data.sql
+            relativeToChangelogFile: true
+

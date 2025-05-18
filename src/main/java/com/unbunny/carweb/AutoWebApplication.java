@@ -1,4 +1,4 @@
-package com.unbunny.autoweb;
+package com.unbunny.carweb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
