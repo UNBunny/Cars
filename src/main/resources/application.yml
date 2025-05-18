@@ -1,0 +1,18 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /security
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${DB_USERNAME:admin}
+    password: ${DB_PASSWORD:admin}
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+testing:
+  app:
+    secret: ivnisbunhugslkfcalkmvkdv
+    expirationMs: 60000
