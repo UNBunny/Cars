@@ -52,7 +52,6 @@ public class Manufacturer {
     @OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Car> cars = new ArrayList<>();
 
-
 }
 
 

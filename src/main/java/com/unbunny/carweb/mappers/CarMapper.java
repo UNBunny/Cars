@@ -75,6 +75,7 @@ public interface CarMapper {
                 .map(Category::getName)
                 .collect(Collectors.toList());
     }
+
     @Named("mapCategoriesToStrings")
     default List<String> mapCategoriesToStrings(List<Category> categories) {
         if (categories == null) {
