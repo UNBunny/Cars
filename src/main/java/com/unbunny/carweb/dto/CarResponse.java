@@ -11,15 +11,23 @@ import java.util.List;
 @Builder
 public class CarResponse {
     private Long id;
+
     private String model;
+
     private Integer year;
+
     private String mainImageUrl;
+
     private String description;
+
     private Integer views;
+
     private Double price;
 
     private ManufacturerResponse manufacturer;
+
     private BodyTypeDto bodyType;
+
     private EngineTypeDto engineType;
 
     private Integer powerHp;

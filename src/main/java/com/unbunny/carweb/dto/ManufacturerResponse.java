@@ -1,16 +1,8 @@
 package com.unbunny.carweb.dto;
 
-import com.unbunny.carweb.models.cars.Car;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Lob;
-import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter

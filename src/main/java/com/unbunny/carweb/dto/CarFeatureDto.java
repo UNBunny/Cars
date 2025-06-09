@@ -10,6 +10,5 @@ import lombok.Setter;
 @Builder
 public class CarFeatureDto {
     private String featureName;
-
     private String featureValue;
 }
