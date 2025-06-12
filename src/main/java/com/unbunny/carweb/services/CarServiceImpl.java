@@ -67,9 +67,24 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarResponse createCar(CarRequest carRequest) {
+        log.info("Received CarRequest: images={}, features={}", carRequest.getImages(), carRequest.getFeatures());
         Car car = carMapper.toCar(carRequest);
-        Car savedCar = carRepository.save(car);
-        return carMapper.toCarResponse(savedCar);
+        log.info("Mapped Car: images={}, features={}", car.getImages(), car.getFeatures());
+        // Устанавливаем связь с Car для images и features
+        if (car.getImages() != null) {
+            car.getImages().forEach(image -> image.setCar(car));
+        }
+        if (car.getFeatures() != null) {
+            car.getFeatures().forEach(feature -> feature.setCar(car));
+        }
+        try {
+            Car savedCar = carRepository.save(car);
+            log.info("Saved Car: images={}, features={}", savedCar.getImages(), savedCar.getFeatures());
+            return carMapper.toCarResponse(savedCar);
+        } catch (Exception e) {
+            log.error("Failed to save car: {}", e.getMessage(), e);
+            throw new RuntimeException("Failed to save car", e);
+        }
     }
 
     @Override

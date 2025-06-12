@@ -1,6 +1,7 @@
 package com.unbunny.carweb.models.cars;
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -77,10 +78,10 @@ public class Car {
     @Column(nullable = false, unique = true)
     private String slug;
 
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CarImage> images;
 
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CarFeature> features;
 
     @ManyToMany

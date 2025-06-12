@@ -1,10 +1,21 @@
 package com.unbunny.carweb.mappers;
 
+import com.unbunny.carweb.dto.CarFeatureDto;
+import com.unbunny.carweb.dto.CarImageDto;
 import com.unbunny.carweb.dto.CarRequest;
 import com.unbunny.carweb.dto.CarResponse;
 import com.unbunny.carweb.models.cars.Car;
+import com.unbunny.carweb.models.cars.CarFeature;
+import com.unbunny.carweb.models.cars.CarImage;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 // Нужно полностью переписать Mapper (ПОЛНОСТЬЮ!!!!!!)
@@ -17,9 +28,10 @@ public interface CarMapper {
     @Mapping(target = "manufacturer", source = "manufacturerId") // +
     @Mapping(target = "bodyType", source = "bodyTypeId") // +
     @Mapping(target = "engineType", source = "engineTypeId") //  +
-    @Mapping(target = "images", source = "images") // +-
-    @Mapping(target = "features", source = "features") // +-
-    @Mapping(target = "categories", source = "categoryIds")
+    @Mapping(target = "images", source = "images", qualifiedByName = "mapImages")
+    @Mapping(target = "features", source = "features", qualifiedByName = "mapFeatures")
+    @Mapping(target = "categories", source = "categoryIds") // +
+
     @Mapping(target = "views", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
@@ -35,32 +47,25 @@ public interface CarMapper {
     @Mapping(target = "categories", source = "categories")
     CarResponse toCarResponse(Car car);
 
-//    // === DTO -> Entity коллекции ===
+    //    // === DTO -> Entity коллекции ===
 //
-//    @Named("mapImages")
-//    default List<CarImage> mapImages(List<CarImageDto> dtos, @Context Car car) {
-//        if (dtos == null) return Collections.emptyList();
-//        return dtos.stream()
-//                .map(dto -> CarImage.builder()
-//                        .imageUrl(dto.getImageUrl())
-//                        .isMain(dto.getIsMain())
-//                        .altText(dto.getAltText())
-//                        .car(car)
-//                        .build())
-//                .collect(Collectors.toList());
-//    }
-//
-//    @Named("mapFeatures")
-//    default List<CarFeature> mapFeatures(List<CarFeatureDto> dtos, @Context Car car) {
-//        if (dtos == null) return Collections.emptyList();
-//        return dtos.stream()
-//                .map(dto -> CarFeature.builder()
-//                        .featureName(dto.getFeatureName())
-//                        .featureValue(dto.getFeatureValue())
-//                        .car(car)
-//                        .build())
-//                .collect(Collectors.toList());
-//    }
+    @Named("mapImages")
+    default List<CarImage> mapImages(List<CarImageDto> images) {
+        if (images == null || images.isEmpty()) return Collections.emptyList();
+        CarImageMapper imageMapper = org.mapstruct.factory.Mappers.getMapper(CarImageMapper.class);
+        return images.stream()
+                .map(imageMapper::toEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Named("mapFeatures")
+    default List<CarFeature> mapFeatures(List<CarFeatureDto> features) {
+        if (features == null || features.isEmpty()) return Collections.emptyList();
+        CarFeatureMapper featureMapper = org.mapstruct.factory.Mappers.getMapper(CarFeatureMapper.class);
+        return features.stream()
+                .map(featureMapper::toEntity)
+                .collect(Collectors.toList());
+    }
 //
 //    @Named("mapCategories")
 //    default List<Category> mapCategories(List<Long> categoryIds) {
