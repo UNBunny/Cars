@@ -25,12 +25,10 @@ public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
     private final CarMapper carMapper;
-    private final CarImageMapper imageMapper;
 
     public CarServiceImpl(CarRepository carRepository, CarMapper carMapper, CarImageMapper imageMapper) {
         this.carRepository = carRepository;
         this.carMapper = carMapper;
-        this.imageMapper = imageMapper;
     }
 
     @Override
