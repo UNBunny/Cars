@@ -1,13 +1,14 @@
 package com.unbunny.carweb.controllers;
 
 
-import com.unbunny.carweb.dto.auth.LoginRequest;
-import com.unbunny.carweb.dto.auth.LoginResponse;
-import com.unbunny.carweb.dto.auth.RegisterRequest;
-import com.unbunny.carweb.dto.auth.RegisterResponse;
+import com.unbunny.carweb.dto.auth.request.LoginRequest;
+import com.unbunny.carweb.dto.auth.response.LoginResponse;
+import com.unbunny.carweb.dto.auth.request.RegisterRequest;
+import com.unbunny.carweb.dto.auth.response.RegisterResponse;
 import com.unbunny.carweb.models.user.User;
 import com.unbunny.carweb.security.jwt.JwtUtil;
 import com.unbunny.carweb.security.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,7 +32,7 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -49,7 +50,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<RegisterResponse> register(@RequestBody @Valid RegisterRequest request) {
         User admin = userService.createAdmin(
                 request.getUsername(),
                 request.getPassword(),
