@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS user_roles
 (
     user_id UUID         NOT NULL,
     role    VARCHAR(255) NOT NULL,
-    CONSTRAINT fk_user_roles_user FOREIGN KEY (user_id) REFERENCES game_users (id),
+    CONSTRAINT fk_user_roles_user FOREIGN KEY (user_id) REFERENCES users (id),
     PRIMARY KEY (user_id, role)
     );
 

@@ -32,7 +32,7 @@ public class JwtUtil {
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody()
-                .get("role", String.class);
+                .getSubject();
     }
 
     public String extractRole(String token) {

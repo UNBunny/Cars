@@ -13,4 +13,11 @@ databaseChangeLog:
         - sqlFile:
             path: changes/V002_insert-data.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 3
+      author: nikita
+      changes:
+        - sqlFile:
+            path: changes/V003_create-users-tables.sql
+            relativeToChangelogFile: true
 
